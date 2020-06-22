@@ -2,10 +2,12 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const { celebrate, Joi, errors } = require('celebrate');
+const cors = require('cors');
 
 
 const app = express();
 require('dotenv').config();
+
 
 const { PORT = 3000 } = process.env;
 const path = require('path');
@@ -17,6 +19,11 @@ const { login } = require('./routes/login');
 const { createUser } = require('./routes/createUser');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
+const corsOptions = {
+  origin: 'http://localhost:8080',
+  credentials: true,
+};
+
 
 // подключаемся к серверу монгус
 mongoose.connect('mongodb://localhost:27017/mestodb', {
@@ -26,6 +33,7 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
   useUnifiedTopology: true,
 });
 
+app.use(cors(corsOptions));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
