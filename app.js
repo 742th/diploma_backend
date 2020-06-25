@@ -20,7 +20,7 @@ const { createUser } = require('./routes/createUser');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const corsOptions = {
-  origin: 'http://localhost:8080',
+  origin: ['http://localhost:8080', 'https://742th.github.io/ya.diploma'],
   credentials: true,
 };
 
